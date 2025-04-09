@@ -1,0 +1,39 @@
+services:
+
+  mysqldb:
+    image: mysql:8.0
+    networks:
+      - springboot-db-net
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./script/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  application:
+    image: hassan233/wiki:latest
+    ports:
+      - "8080:8080"
+    networks:
+      - springboot-db-net
+    depends_on:
+      mysqldb:
+        condition: service_healthy
+    volumes:
+      - /data/springboot-app
+
+networks:
+  springboot-db-net:
+
+volumes:
+  mysql-data:
+
