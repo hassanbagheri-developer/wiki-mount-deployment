@@ -9,6 +9,69 @@ GRANT ALL PRIVILEGES ON hassan.* TO 'developer'@'%';
 FLUSH PRIVILEGES;
 
 
+-- Table: user_application
+CREATE TABLE IF NOT EXISTS user_application (
+                                  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                                  username VARCHAR(255) UNIQUE NOT NULL,
+                                  password VARCHAR(255),
+                                  enabled BOOLEAN,
+                                  email VARCHAR(255),
+                                  phone VARCHAR(255),
+                                  bio TEXT,
+                                  first_name VARCHAR(255),
+                                  last_name VARCHAR(255),
+                                  regin VARCHAR(255),
+                                  birthday DATE,
+                                  removed_at TIMESTAMP,
+                                  created_at TIMESTAMP NOT NULL,
+                                  updated_at TIMESTAMP NOT NULL
+);
+
+-- Table: role
+CREATE TABLE IF NOT EXISTS role (
+                      id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                      name VARCHAR(255) UNIQUE NOT NULL
+);
+
+-- Table: authority
+CREATE TABLE IF NOT EXISTS authority (
+                           id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                           name VARCHAR(255) UNIQUE NOT NULL
+);
+
+-- Table: user_favorite_activities (Many-to-Many relationship between User and FavoriteActivity)
+CREATE TABLE IF NOT EXISTS user_favorite_activities (
+                                          user_id BIGINT,
+                                          activity_id BIGINT,
+                                          FOREIGN KEY (user_id) REFERENCES user_application(id),
+                                          FOREIGN KEY (activity_id) REFERENCES favorite_activities(id),
+                                          PRIMARY KEY (user_id, activity_id)
+);
+
+-- Table: user_role (Many-to-Many relationship between User and Role)
+CREATE TABLE IF NOT EXISTS user_role (
+                           user_id BIGINT,
+                           role_id BIGINT,
+                           FOREIGN KEY (user_id) REFERENCES user_application(id),
+                           FOREIGN KEY (role_id) REFERENCES role(id),
+                           PRIMARY KEY (user_id, role_id)
+);
+
+-- Table: role_authority (Many-to-Many relationship between Role and Authority)
+CREATE TABLE IF NOT EXISTS role_authority (
+                                role_id BIGINT,
+                                authority_id BIGINT,
+                                FOREIGN KEY (role_id) REFERENCES role(id),
+                                FOREIGN KEY (authority_id) REFERENCES authority(id),
+                                PRIMARY KEY (role_id, authority_id)
+);
+
+-- Table: favorite_activities
+CREATE TABLE IF NOT EXISTS favorite_activities (
+                                     id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                                     name VARCHAR(255)
+);
+
 CREATE TABLE IF NOT EXISTS weather (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     lat DOUBLE NOT NULL,
@@ -27,6 +90,11 @@ CREATE TABLE IF NOT EXISTS weather (
     location_title VARCHAR(255),
     height VARCHAR(255)
 );
+
+
+insert IGNORE into hassan.role (id, name)
+values  (1, 'ROLE_ADMIN'),
+        (2, 'ROLE_USER');
 
 
 insert IGNORE into hassan.weather (id, city_name, date_time, duration_day, feels_like, height, lat, location_name, lon, temp_max, temp_min, temperature, weather_description, weather_main, wind_speed, location_title)
