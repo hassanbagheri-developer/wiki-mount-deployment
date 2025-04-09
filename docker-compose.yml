@@ -1,7 +1,9 @@
+version: "3"
 services:
 
   mysqldb:
     image: mysql:8.0
+    command: --init-file=/docker-entrypoint-initdb.d/init.sql
     networks:
       - springboot-db-net
     ports:
@@ -10,7 +12,9 @@ services:
       - MYSQL_ROOT_PASSWORD=root
 
     volumes:
-      - mysql-data:/var/lib/mysql
+      - './docker/db/data:/var/lib/mysql'
+      - './docker/db/my.cnf:/etc/mysql/conf.d/my.cnf'
+      - './docker/db/sql:/docker-entrypoint-initdb.d'
       - ./script/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
 
     healthcheck:
@@ -34,6 +38,5 @@ services:
 networks:
   springboot-db-net:
 
-volumes:
-  mysql-data:
+
 

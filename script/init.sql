@@ -22,13 +22,13 @@ CREATE TABLE IF NOT EXISTS weather (
     weather_main VARCHAR(255),
     wind_speed DOUBLE NOT NULL,
     date_time VARCHAR(255),
-    duration_day VARCHAR(255),
+    duration_day ENUM('AM', 'PM', 'Night'),
     location_name VARCHAR(255),
     location_title VARCHAR(255),
     height VARCHAR(255)
 );
 
-#                        ------#####     Table weather     ######-------
+
 insert IGNORE into hassan.weather (id, city_name, date_time, duration_day, feels_like, height, lat, location_name, lon, temp_max, temp_min, temperature, weather_description, weather_main, wind_speed, location_title)
 values  (1, 'Tehran', '2025-04-09 00:00:00', 'Night', 270.84, '3964', 35.88481617106589, 'tochal', 51.420238870966365, 274.32, 272.91, 274.32, 'scattered clouds', 'Clouds', 3.26, null),
         (2, 'Tehran', '2025-04-09 09:00:00', 'AM', 278.44, '3964', 35.88481617106589, 'tochal', 51.420238870966365, 280.54, 280.54, 280.54, 'clear sky', 'Clear', 3.14, null),
