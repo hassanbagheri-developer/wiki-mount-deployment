@@ -39,6 +39,12 @@ CREATE TABLE IF NOT EXISTS authority (
                            name VARCHAR(255) UNIQUE NOT NULL
 );
 
+-- Table: favorite_activities
+CREATE TABLE IF NOT EXISTS favorite_activities (
+                                                   id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                                                   name VARCHAR(255)
+);
+
 -- Table: user_favorite_activities (Many-to-Many relationship between User and FavoriteActivity)
 CREATE TABLE IF NOT EXISTS user_favorite_activities (
                                           user_id BIGINT,
@@ -66,12 +72,6 @@ CREATE TABLE IF NOT EXISTS role_authority (
                                 PRIMARY KEY (role_id, authority_id)
 );
 
--- Table: favorite_activities
-CREATE TABLE IF NOT EXISTS favorite_activities (
-                                     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-                                     name VARCHAR(255)
-);
-
 CREATE TABLE IF NOT EXISTS weather (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     lat DOUBLE NOT NULL,
@@ -90,12 +90,64 @@ CREATE TABLE IF NOT EXISTS weather (
     location_title VARCHAR(255),
     height VARCHAR(255)
 );
+CREATE TABLE IF NOT EXISTS Mountains (
+                           id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                           name_fa VARCHAR(255),
+                           name_en VARCHAR(255),
+                           city VARCHAR(255),
+                           Province VARCHAR(255),
+                           lat DOUBLE,
+                           lon DOUBLE
+);
+
+CREATE TABLE IF NOT EXISTS mountain_height (
+                                id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                                height VARCHAR(255),
+                                mountain_id BIGINT,
+                                CONSTRAINT fk_mountain
+                                    FOREIGN KEY (mountain_id)
+                                        REFERENCES Mountains(id)
+                                        ON DELETE SET NULL
+);
+
 
 
 insert IGNORE into hassan.role (id, name)
 values  (1, 'ROLE_ADMIN'),
         (2, 'ROLE_USER');
 
+insert into hassan.mountain_height (id, height, mountain_id)
+values  (1, '41390', 1),
+        (2, '3500', 1),
+        (3, '2500', 1),
+        (4, '1500', 1),
+        (5, '1960', 2),
+        (8, '2400', 4),
+        (9, '276', 3),
+        (10, '3312', 5),
+        (11, '1312', 5),
+        (12, '3357', 6),
+        (13, '3486', 7),
+        (14, '1515', 8),
+        (15, '3206', 9),
+        (16, '3150', 10),
+        (17, '3850', 11),
+        (19, '3964', 12);
+
+
+insert into mountains (id, province, city, name_en, name_fa, lat, lon)
+values  (1, null, null, 'azadkouh', 'آزاد کوه', 36.170848925906824, 51.50479242158356),
+        (2, null, null, 'aseman-sara', 'آسمان سرا', 36.780478352386005, 49.49108206679992),
+        (3, null, null, 'aseman-kouh', 'آسمان کوه', 35.842111014279325, 50.94199887431531),
+        (4, null, null, 'asiab-bad', 'آسیاب باد', 35.78842240637523, 51.224404601829484),
+        (5, null, null, 'aq-dagh', 'آق داغ', 37.38521244151588, 48.54973939187653),
+        (6, null, null, 'ahangarak', 'آهنگرک', 35.95661430741236, 51.46960055227743),
+        (7, null, null, 'ordak-mardak', 'اردک مردک', 34.65972504547835, 48.45799852352919),
+        (8, null, null, 'arfe_kouh', 'ارفع کوه', 35.999606103814116, 52.99115694248363),
+        (9, null, null, 'espidchal', 'اسپیدچال', 35.926291163799505, 51.58065448802909),
+        (10, null, null, 'astarchal', 'استرچال', 35.9817005471733, 51.44396056929918),
+        (11, null, null, 'ashtar', 'اشتر', 33.33977656660337, 49.30633987973069),
+        (12, null, null, 'tochal', 'توچال', 35.88481617106589, 51.420238870966365);
 
 insert IGNORE into hassan.weather (id, city_name, date_time, duration_day, feels_like, height, lat, location_name, lon, temp_max, temp_min, temperature, weather_description, weather_main, wind_speed, location_title)
 values  (1, 'Tehran', '2025-04-09 00:00:00', 'Night', 270.84, '3964', 35.88481617106589, 'tochal', 51.420238870966365, 274.32, 272.91, 274.32, 'scattered clouds', 'Clouds', 3.26, null),
