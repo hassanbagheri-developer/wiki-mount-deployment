@@ -116,7 +116,7 @@ insert IGNORE into hassan.role (id, name)
 values  (1, 'ROLE_USER'),
         (2, 'ROLE_ADMIN');
 
-insert into hassan.role_authority (role_id, authority_id)
+insert IGNORE into hassan.role_authority (role_id, authority_id)
 values  (1, 1),
         (1, 2),
         (1, 3),
