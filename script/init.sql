@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS weather (
     location_title VARCHAR(255),
     height VARCHAR(255)
 );
-CREATE TABLE IF NOT EXISTS Mountains (
+CREATE TABLE IF NOT EXISTS mountains (
                            id BIGINT AUTO_INCREMENT PRIMARY KEY,
                            name_fa VARCHAR(255),
                            name_en VARCHAR(255),
@@ -106,15 +106,40 @@ CREATE TABLE IF NOT EXISTS mountain_height (
                                 mountain_id BIGINT,
                                 CONSTRAINT fk_mountain
                                     FOREIGN KEY (mountain_id)
-                                        REFERENCES Mountains(id)
+                                        REFERENCES mountains(id)
                                         ON DELETE SET NULL
 );
 
 
 
 insert IGNORE into hassan.role (id, name)
-values  (1, 'ROLE_ADMIN'),
-        (2, 'ROLE_USER');
+values  (1, 'ROLE_USER'),
+        (2, 'ROLE_ADMIN');
+
+insert into hassan.role_authority (role_id, authority_id)
+values  (1, 1),
+        (1, 2),
+        (1, 3),
+        (1, 4),
+        (1, 5),
+        (1, 6),
+        (1, 7),
+        (1, 8),
+        (1, 9),
+        (1, 10),
+        (1, 11),
+        (1, 12),
+        (1, 13),
+        (1, 14),
+        (1, 15),
+        (1, 16),
+        (1, 17),
+        (1, 18),
+        (1, 19),
+        (1, 20),
+        (1, 21),
+        (1, 22),
+        (1, 23);
 
 
 
