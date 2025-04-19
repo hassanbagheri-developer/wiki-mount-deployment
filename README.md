@@ -7,12 +7,16 @@
 ### Docker
 
 ```bash
-    sudo docker pull hassan233/wiki:latest
+  docker pull hassan233/wiki:latest
 ```
 ####       
 
 ```bash
-    sudo docker-compose up -d
+    docker-compose up -d
+```
+
+```bash
+    docker-compose restart
 ```
 --------------------------------------
 
