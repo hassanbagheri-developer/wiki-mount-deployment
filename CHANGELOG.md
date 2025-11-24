@@ -15,9 +15,9 @@ Author: hassanbagheri-developer
 Message: docut login crash fix JIRA-123
 Issue: JIRA-123
 -----------
-
-### Version: v1.0.3
-Date: 2025-11-24 08:30:25
-Author: hassanbagheri-developer
-Message: docut: update changelog and PDF for v1.0.X (refs JIRA-124)
-Issue: JIRA-124
+ 
+### Version: v1.0.3 
+Date: 2025-11-24 09:01:42 
+Author: hassanbagheri-developer 
+Message: docut: update changelog and PDF for v1.0.X (refs JIRA-124) 
+Issue: JIRA-124 
