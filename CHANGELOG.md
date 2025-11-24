@@ -17,7 +17,11 @@ Issue: JIRA-123
 -----------
 
 ### Version: v1.0.3
-Date: 2025-11-24 09:08:07
+
+Date: 2025-11-24 09:11:42
+
 Author: hassanbagheri-developer
+
 Message: docut: update changelog and PDF for
+
 Issue: none
