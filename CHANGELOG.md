@@ -18,3 +18,13 @@ Author: hassanbagheri-developer
 Message: docut: update changelog and PDF2 for
 
 Issue: none
+
+### Version: v1.0.0
+
+Date: 2025-11-24 09:30:37
+
+Author: hassanbagheri-developer
+
+Message: docut: fix login crash JIRA-1246
+
+Issue: JIRA-1246
