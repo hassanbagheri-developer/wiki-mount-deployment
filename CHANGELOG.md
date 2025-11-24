@@ -48,3 +48,13 @@ Message: docut: fix login crash JIRA-1
 Issue: JIRA-1
 
 ------
+
+Date: 2025-11-24 09:39:28
+
+Author: hassanbagheri-developer
+
+Message: docut: fix login crash JIRA-1
+
+Issue: JIRA-1
+
+------------------------------------------------
