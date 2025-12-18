@@ -1,32 +1,31 @@
-version: "3"
+version: "3.8"
+
 services:
 
   mysqldb:
     image: mysql:8.0
     container_name: wiki-my-mysql
     command: --init-file=/docker-entrypoint-initdb.d/init.sql
-    networks:
-      - springboot-db-net
     ports:
       - "3306:3306"
+    networks:
+      - springboot-db-net
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-
+      MYSQL_ROOT_PASSWORD: root
     volumes:
-      - './docker/db/data:/var/lib/mysql'
-      - './docker/db/my.cnf:/etc/mysql/conf.d/my.cnf'
-      - './docker/db/sql:/docker-entrypoint-initdb.d'
+      - ./docker/db/data:/var/lib/mysql
+      - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./docker/db/sql:/docker-entrypoint-initdb.d
       - ./script/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
-
     healthcheck:
-      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
       timeout: 5s
       retries: 5
 
-  application:
+  core-service:
     image: hassan233/wiki:latest
-    container_name: wiki-my-app
+    container_name: core-service
     ports:
       - "8080:8080"
     networks:
@@ -35,10 +34,23 @@ services:
       mysqldb:
         condition: service_healthy
     volumes:
-      - /data/springboot-app
+      - /data/core-service/springboot-app
+
+  
+  api-gateway:
+    image: hassan233/api-gateway:latest
+    container_name: api-gateway
+    ports:
+      - "8070:8070"
+    networks:
+      - springboot-db-net
+    depends_on:
+      mysqldb:
+        condition: service_healthy
+    volumes:
+      - /data/core-service/springboot-app
+
 
 networks:
   springboot-db-net:
-
-
-
+    driver: bridge
